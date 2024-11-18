@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header Text -->
+    <TextView
+        android:id="@+id/headerMediserve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#5588A3"
+        android:padding="12dp"
+        android:text="MediServe"
+        android:textColor="#F5F5F5"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:textAlignment="center" />
+
+    <!-- Buttons Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/homeProdCat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Product Catalogue"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/homeInventory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:padding="10dp"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/homeProcessOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Process Order"
+            android:padding="10dp"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/homeTransactions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Transactions"
+            android:padding="10dp"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingTop="24dp">
+
+        <!-- Catalogue Navigation -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/navProdCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <TextView
+                android:id="@+id/navProdCatText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Catalogue"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Inventory Navigation -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/navInventory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <TextView
+                android:id="@+id/navInventoryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inventory"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Order Navigation -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/navProcessOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <TextView
+                android:id="@+id/navProcessOrderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Transactions Navigation -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/navTransactions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <TextView
+                android:id="@+id/navTransactionsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transactions"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
