@@ -1,6 +1,9 @@
 package com.mediserve.pharma.mediservepharma
 
-class InventoryStock (product: Product, qty: Int){
+class InventoryStock (stockID: Int, product: Product, qty: Int){
+
+    var stockID = stockID
+        private set
 
     var product = product
         private set

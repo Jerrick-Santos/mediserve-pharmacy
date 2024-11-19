@@ -54,21 +54,22 @@ class InventoryActivity : ComponentActivity() {
             Toast.makeText(this, "Pharmacy ID not found. Please log in again.", Toast.LENGTH_SHORT).show()
             return
         }
-
+        Log.d("PARAM CHECK", pharmacyID.toString())
         // Make API call using Retrofit
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitInstance.api.getInventory(pharmacyID)
                 if (response.isSuccessful && response.body() != null) {
+                    Log.d("NICE",  response.body().toString())
                     val fetchedInventory = response.body()!! // List<InventoryStockGET>
 
                     // Convert the API response to InventoryStock objects
                     val inventoryStocks = ArrayList<InventoryStock>()
                     for (productData in fetchedInventory) {
                         // Transform the id
-                        val transformedId = productData.id.removePrefix("PRDCT").toIntOrNull()
+                        val transformedId = productData.product_id.removePrefix("PRDCT").toIntOrNull()
                         if (transformedId == null) {
-                            Log.e("Data Error", "Invalid product ID format: ${productData.id}")
+                            Log.e("Data Error", "Invalid product ID format: ${productData.product_id}")
                             continue
                         }
 
@@ -80,7 +81,7 @@ class InventoryActivity : ComponentActivity() {
                             productData.manufacturer,
                             productData.dosage
                         )
-                        val inventoryStock = InventoryStock(product, productData.qty)
+                        val inventoryStock = InventoryStock(productData.stock_id, product, productData.qty)
                         inventoryStocks.add(inventoryStock)
                     }
 

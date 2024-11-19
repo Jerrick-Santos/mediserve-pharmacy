@@ -8,6 +8,7 @@ class InventoryViewHolder (private val viewBinding: InventoryItemBinding) : View
 
     fun bindData(inventory: InventoryStock) {
         viewBinding.productImage.setImageResource(R.drawable.medicine)
+        viewBinding.stockID.text = inventory.stockID.toString()
         viewBinding.brandName.text = inventory.product.brandName
         viewBinding.id.text = inventory.product.id
         viewBinding.genericName.text = inventory.product.genericName

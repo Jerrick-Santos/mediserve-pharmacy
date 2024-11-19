@@ -40,7 +40,7 @@ class DataGenerator {
 
             for (i in productList.indices) {
                 // Generate different quantities for each product stock
-                inventoryStockList.add(InventoryStock(productList[i], (10..100).random()))
+                inventoryStockList.add(InventoryStock(i, productList[i], (10..100).random()))
             }
 
             return inventoryStockList

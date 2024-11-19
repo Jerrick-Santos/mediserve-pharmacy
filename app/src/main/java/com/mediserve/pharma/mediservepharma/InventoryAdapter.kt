@@ -1,6 +1,7 @@
 package com.mediserve.pharma.mediservepharma
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ class InventoryAdapter (
         const val inventoryDosageKey: String = "PRODUCT_DOSAGE"
         const val inventoryPositionKey: String = "POSITION"
         const val inventoryQtyKey : String = "QTY"
+        const val inventoryStockIdKey: String = "STOCK_ID"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InventoryViewHolder {
@@ -41,7 +43,7 @@ class InventoryAdapter (
         holder.itemView.setOnClickListener {
 
             // STEP 2: Instantiate Intent (src_activity, dest_activity)
-            val intent = Intent(holder.itemView.context, ClickedProductCatalogue::class.java)
+            val intent = Intent(holder.itemView.context, ClickedInventoryItem::class.java)
 
             // STEP 3: Pass the product details using putExtra
             intent.putExtra(inventoryIdKey, data[position].product.id)
@@ -49,6 +51,8 @@ class InventoryAdapter (
             intent.putExtra(inventoryGenericKey, data[position].product.genericName)
             intent.putExtra(inventoryManufacturerKey, data[position].product.manufacturer)
             intent.putExtra(inventoryDosageKey, data[position].product.dosage)
+
+            intent.putExtra(inventoryStockIdKey, data[position].stockID)
             intent.putExtra(inventoryQtyKey, data[position].qty)
 
 
