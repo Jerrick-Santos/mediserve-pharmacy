@@ -13,6 +13,9 @@ constraintlayout = "2.1.4"
 appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.9.2"
+firebaseMlVisionBarcodeModel = "16.1.2"
+barcodeScanningCommon = "17.0.0"
+playServicesCodeScanner = "16.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +37,11 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+firebase-ml-vision-barcode-model = { group = "com.google.firebase", name = "firebase-ml-vision-barcode-model", version.ref = "firebaseMlVisionBarcodeModel" }
+barcode-scanning-common = { group = "com.google.mlkit", name = "barcode-scanning-common", version.ref = "barcodeScanningCommon" }
+play-services-code-scanner = { group = "com.google.android.gms", name = "play-services-code-scanner", version.ref = "playServicesCodeScanner" }
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

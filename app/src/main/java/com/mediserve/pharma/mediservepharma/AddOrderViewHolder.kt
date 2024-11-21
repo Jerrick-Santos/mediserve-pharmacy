@@ -9,7 +9,7 @@ class AddOrderViewHolder (val viewBinding: AddOrderItemBinding) : ViewHolder(vie
     fun bindData(inventory: InventoryStock) {
         viewBinding.productImage.setImageResource(R.drawable.medicine)
         viewBinding.brandName.text = inventory.product.brandName
-        viewBinding.id.text = inventory.product.id
+        viewBinding.id.text = inventory.stockID.toString()
         viewBinding.genericName.text = inventory.product.genericName
         viewBinding.manufacturer.text = inventory.product.manufacturer
         viewBinding.dosage.text = inventory.product.dosage

@@ -37,6 +37,13 @@
             android:text="Name" />
 
         <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Type" />
+
+        <TextView
             android:id="@+id/qty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,10 +53,8 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/myRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/pdSearch" />
+        android:layout_height="match_parent" />
+
 </LinearLayout>

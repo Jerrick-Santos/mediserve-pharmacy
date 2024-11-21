@@ -1,15 +1,24 @@
 package com.mediserve.pharma.mediservepharma
 
+import android.content.ContentValues.TAG
+import android.content.Intent
+import android.net.http.HttpException
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresExtension
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.mediserve.pharma.mediservepharma.ClickedProductCatalogue.Companion
 import com.mediserve.pharma.mediservepharma.databinding.ActivityClickedInventoryItemBinding
 import com.mediserve.pharma.mediservepharma.databinding.ActivityClickedProductCatalogueBinding
+import kotlinx.coroutines.launch
+import java.io.IOException
 
 class ClickedInventoryItem : ComponentActivity() {
 
@@ -23,6 +32,7 @@ class ClickedInventoryItem : ComponentActivity() {
 //    private lateinit var qty: String
 
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,6 +57,70 @@ class ClickedInventoryItem : ComponentActivity() {
         viewBinding.dosage.text = productDosage
         viewBinding.qty.text = intent.getIntExtra(InventoryAdapter.inventoryQtyKey, -1).toString()
         viewBinding.stockID.text = intent.getIntExtra(InventoryAdapter.inventoryStockIdKey, -1).toString()
+
+
+        viewBinding.addToInventoryBtn.setOnClickListener {
+            val editedStock = EditStockPatch(
+                intent.getIntExtra(InventoryAdapter.inventoryStockIdKey, -1),
+                "add",
+                viewBinding.addStock.text.toString().toIntOrNull() ?: -1
+            )
+
+            Log.d("EDIT STOCK TEST", editedStock.toString())
+
+            lifecycleScope.launch {
+                val response = try {
+                    RetrofitInstance.api.editStock(editedStock)
+                } catch (e: IOException) {
+                    Log.e(TAG, "IOException: No network connection", e)
+                    return@launch
+                } catch (e: HttpException) {
+                    Log.e(TAG, "HttpException: Unexpected response", e)
+                    return@launch
+                }
+
+
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ClickedInventoryItem, "Stock Edited!", Toast.LENGTH_SHORT).show()
+                    intent = Intent(applicationContext, InventoryActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.e(TAG, "PATCH Failed: ${response.message()}")
+                }
+            }
+        }
+
+        viewBinding.deductToInventoryBtn5.setOnClickListener {
+            val editedStock = EditStockPatch(
+                intent.getIntExtra(InventoryAdapter.inventoryStockIdKey, -1),
+                "deduct",
+                viewBinding.addStock.text.toString().toIntOrNull() ?: -1
+            )
+
+            Log.d("EDIT STOCK TEST", editedStock.toString())
+
+            lifecycleScope.launch {
+                val response = try {
+                    RetrofitInstance.api.editStock(editedStock)
+                } catch (e: IOException) {
+                    Log.e(TAG, "IOException: No network connection", e)
+                    return@launch
+                } catch (e: HttpException) {
+                    Log.e(TAG, "HttpException: Unexpected response", e)
+                    return@launch
+                }
+
+
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ClickedInventoryItem, "Stock Edited!", Toast.LENGTH_SHORT).show()
+                    intent = Intent(applicationContext, InventoryActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.e(TAG, "PATCH Failed: ${response.message()}")
+                }
+            }
+
+        }
 
     }
 }

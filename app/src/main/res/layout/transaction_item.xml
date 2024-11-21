@@ -1,27 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
 
     <TextView
-        android:id="@+id/orderID"
-        android:layout_width="wrap_content"
+        android:id="@+id/transactionOrderID"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="Order ID"
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/productName"
-        android:layout_width="wrap_content"
+        android:id="@+id/transactionProductName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="Product Name"
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/qty"
-        android:layout_width="wrap_content"
+        android:id="@+id/transactionType"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="Type"
+        android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/transactionQty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Qty"
+        android:textSize="16sp" />
 </LinearLayout>

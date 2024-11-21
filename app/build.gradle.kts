@@ -57,6 +57,7 @@ android {
 
 dependencies {
 
+    //scan qr
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -70,6 +71,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
+    implementation(libs.play.services.code.scanner)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -90,4 +92,8 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
+
+    implementation ("com.google.android.gms:play-services-base:18.5.0")
+    implementation ("com.google.android.gms:play-services-tflite-java:16.3.0")
+
 }

@@ -89,6 +89,7 @@ class InventoryActivity : ComponentActivity() {
                     withContext(Dispatchers.Main) {
                         inventoryList.clear()
                         inventoryList.addAll(inventoryStocks)
+                        Log.d("FETCHED_INVEN", inventoryList.toString())
                         adapter.notifyDataSetChanged()
                     }
                 } else {

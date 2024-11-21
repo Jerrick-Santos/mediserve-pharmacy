@@ -5,10 +5,10 @@ import com.mediserve.pharma.mediservepharma.databinding.OrderItemBinding
 
 class ProcessOrderViewHolder (val viewBinding: OrderItemBinding) : ViewHolder(viewBinding.root){
 
-    fun bindData(transaction: Transaction) {
+    fun bindData(newOrder: Order) {
         viewBinding.productImage.setImageResource(R.drawable.medicine)
-        viewBinding.brandName.text = transaction.inventoryStock.product.brandName
-        viewBinding.id.text = transaction.inventoryStock.product.id
-        viewBinding.currVal.text = transaction.qty.toString()
+        viewBinding.brandName.text = newOrder.brandName
+        viewBinding.id.text = newOrder.cartID.toString()
+        viewBinding.currVal.text = newOrder.qty.toString()
     }
 }

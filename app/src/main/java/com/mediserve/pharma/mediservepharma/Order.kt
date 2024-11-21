@@ -1,11 +1,7 @@
 package com.mediserve.pharma.mediservepharma
 
-class Order (transaction: Transaction, totalItemAmt: Int){
-
-    var transaction = transaction
-        private set
-
-    var totalItemAmt = totalItemAmt
-        private set
-
-}
+data class Order (
+    val brandName: String,
+    val cartID: Int,
+    val qty: Int
+)

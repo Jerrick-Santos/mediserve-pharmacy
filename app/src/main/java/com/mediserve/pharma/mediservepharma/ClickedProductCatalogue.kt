@@ -1,11 +1,21 @@
 package com.mediserve.pharma.mediservepharma
 
 import android.app.Activity
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.net.http.HttpException
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.annotation.RequiresExtension
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.mediserve.pharma.mediservepharma.databinding.ActivityClickedProductCatalogueBinding
+import kotlinx.coroutines.launch
+import java.io.IOException
 
 class ClickedProductCatalogue : ComponentActivity() {
 
@@ -29,6 +39,7 @@ class ClickedProductCatalogue : ComponentActivity() {
     private lateinit var productManufacturer: String
     private lateinit var productDosage: String
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,30 +64,46 @@ class ClickedProductCatalogue : ComponentActivity() {
 
         viewBinding.addToInventoryBtn.setOnClickListener {
 
-//            val resultIntent = Intent()
-//            val inputStock = viewBinding.addStock.text.toString().toIntOrNull()
-//            var result = -1
-//
-//            val position = intent.getIntExtra(positionKey, 0)
-//            resultIntent.putExtra(positionKey, position)
-//
-//            if (inputStock != null && inputStock > 0) {
-//
-//                result = 1
-//
-//                resultIntent.putExtra(resultKey, result)
-//                resultIntent.putExtra(qtyKey, inputStock)
-//            }
-//            else {
-//                resultIntent.putExtra(qtyKey, 0)
-//                resultIntent.putExtra(resultKey, result)
-//            }
-//
-//            setResult(Activity.RESULT_OK, resultIntent)
-//            finish()
+            val sharedPreferences = getSharedPreferences("MediServePrefs", Context.MODE_PRIVATE)
+            val pharmacyID = sharedPreferences.getInt("pharmacyID", -1)
 
-            intent = Intent(applicationContext, ProductCatalogueActivity::class.java)
-            this.startActivity(intent);
+            if (pharmacyID == -1) {
+                Toast.makeText(this, "Pharmacy ID not found. Please log in again.", Toast.LENGTH_SHORT).show()
+            }
+
+            val productID = viewBinding.id.text.toString().removePrefix("PRDCT").toIntOrNull() ?: -1
+            val currentAmt = viewBinding.addStock.text.toString().toIntOrNull() ?: -1
+
+
+            val newStock = NewStockPOST(
+                pharmacyID,
+                productID,
+                currentAmt
+            )
+
+            Log.d("POST_TEST", newStock.toString())
+
+            lifecycleScope.launch {
+                val response = try {
+                    RetrofitInstance.api.addStock(newStock)
+                } catch (e: IOException) {
+                    Log.e(TAG, "IOException: No network connection", e)
+                    return@launch
+                } catch (e: HttpException) {
+                    Log.e(TAG, "HttpException: Unexpected response", e)
+                    return@launch
+                }
+
+
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ClickedProductCatalogue, "Stock Added to Inventory!", Toast.LENGTH_SHORT).show()
+                    intent = Intent(applicationContext, InventoryActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.e(TAG, "POST Failed: ${response.message()}")
+                }
+            }
+
 
         }
 

@@ -47,32 +47,32 @@ class DataGenerator {
         }
 
         // Generates a list of Transactions (adding or subtracting stock)
-        fun generateTransactionList(): ArrayList<Transaction> {
-            val inventoryStockList = generateInventoryStockList()
-            val transactionList = ArrayList<Transaction>()
-
-            for (i in inventoryStockList.indices) {
-                // Randomly decide whether it's an addition or subtraction transaction
-                val isAdd = listOf(true, false).random()
-                val qty = (1..inventoryStockList[i].qty).random() // Quantity involved in the transaction
-                transactionList.add(Transaction(inventoryStockList[i], qty, isAdd))
-            }
-
-            return transactionList
-        }
+//        fun generateTransactionList(): ArrayList<Transaction> {
+//            val inventoryStockList = generateInventoryStockList()
+//            val transactionList = ArrayList<Transaction>()
+//
+//            for (i in inventoryStockList.indices) {
+//                // Randomly decide whether it's an addition or subtraction transaction
+//                val isAdd = listOf(true, false).random()
+//                val qty = (1..inventoryStockList[i].qty).random() // Quantity involved in the transaction
+//                transactionList.add(Transaction(inventoryStockList[i], qty, isAdd))
+//            }
+//
+//            return transactionList
+//        }
 
         // Generates a list of Orders (each containing multiple transactions)
-        fun generateOrderList(): ArrayList<Order> {
-            val transactionList = generateTransactionList()
-            val orderList = ArrayList<Order>()
-
-            for (i in transactionList.indices) {
-                // Randomly generate total item amount based on transaction quantity
-                val totalItemAmt = transactionList[i].qty
-                orderList.add(Order(transactionList[i], totalItemAmt))
-            }
-
-            return orderList
-        }
+//        fun generateOrderList(): ArrayList<Order> {
+//            val transactionList = generateTransactionList()
+//            val orderList = ArrayList<Order>()
+//
+//            for (i in transactionList.indices) {
+//                // Randomly generate total item amount based on transaction quantity
+//                val totalItemAmt = transactionList[i].qty
+//                orderList.add(Order(transactionList[i], totalItemAmt))
+//            }
+//
+//            return orderList
+//        }
     }
 }

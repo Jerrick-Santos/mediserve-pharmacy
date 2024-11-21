@@ -8,7 +8,7 @@ import com.mediserve.pharma.mediservepharma.databinding.OrderItemBinding
 
 import com.mediserve.pharma.mediservepharma.databinding.ProductItemBinding
 
-class ProcessOrderAdapter (private val data: ArrayList<Transaction>,
+class ProcessOrderAdapter (private val data: ArrayList<Order>,
 ) : RecyclerView.Adapter<ProcessOrderViewHolder>()  {
 
 
@@ -23,26 +23,25 @@ class ProcessOrderAdapter (private val data: ArrayList<Transaction>,
     }
 
     override fun onBindViewHolder(holder: ProcessOrderViewHolder, position: Int) {
-        val transaction = data[position]
+        val order = data[position]
 
         // Bind the data to the view holder
-        holder.bindData(transaction)
+        holder.bindData(order)
 
         // Set the initial quantity value
-        holder.viewBinding.currVal.text = transaction.qty.toString()
+        holder.viewBinding.currVal.text = order.qty.toString()
 
 
-        var tempTransaction = transaction.qty
+        var tempTransaction = order.qty
         // Handle '+' button click
         holder.viewBinding.addStockBtn.setOnClickListener {
-
             tempTransaction += 1 // Increment the quantity in the transaction object
             holder.viewBinding.currVal.text = tempTransaction.toString() // Update the displayed value
         }
 
         // Handle '-' button click
         holder.viewBinding.minusStockBtn.setOnClickListener {
-            if (transaction.qty > 0) { // Prevent negative quantity
+            if (order.qty > 0) { // Prevent negative quantity
                 tempTransaction-- // Decrement the quantity in the transaction object
                 holder.viewBinding.currVal.text = tempTransaction.toString() // Update the displayed value
             }

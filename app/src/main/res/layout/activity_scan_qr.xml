@@ -8,6 +8,8 @@
     android:orientation="vertical"
     tools:context=".ScanQrActivity">
 
+
+
     <TextView
         android:id="@+id/headerMediserve5"
         android:layout_width="match_parent"
@@ -18,9 +20,28 @@
         android:textAppearance="@android:style/TextAppearance.Material.Display1"
         android:textColor="#F5F5F5" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/qr_code_secret" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/prescValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="176dp" />
+
+        <Button
+            android:id="@+id/scanQrBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prescValue"
+            tools:layout_editor_absoluteX="161dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </LinearLayout>
