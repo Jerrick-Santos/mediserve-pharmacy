@@ -8,7 +8,6 @@ import com.mediserve.pharma.mediservepharma.databinding.TransactionItemBinding
 class ViewTransactionsViewHolder (val viewBinding: TransactionItemBinding) : ViewHolder(viewBinding.root){
 
     fun bindData(transaction: Transaction) {
-        Log.d("BIND_DATA", "Binding transaction: $transaction")  // Log the transaction object
         viewBinding.transactionOrderID.text = transaction.transac_id
         viewBinding.transactionProductName.text = transaction.product_name
         viewBinding.transactionType.text = transaction.change_type

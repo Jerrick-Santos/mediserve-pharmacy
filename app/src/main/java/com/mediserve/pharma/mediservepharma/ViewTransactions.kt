@@ -39,6 +39,8 @@ class ViewTransactions : ComponentActivity() {
 
         // Fetch data from the API
         fetchTransactions()
+
+
     }
 
     private fun fetchTransactions() {
@@ -59,26 +61,10 @@ class ViewTransactions : ComponentActivity() {
                     val fetchedTransactions = response.body()!!
 
 
-                    // Process the API response
-                    val transformedTransactions = ArrayList<Transaction>()
-                    for (transactionData in fetchedTransactions) {
-
-                        // Create a new Transaction object
-                        val transaction = Transaction(
-                            transac_id = transactionData.transac_id, // Optionally format the ID
-                            product_name = transactionData.product_name,
-                            change_type = transactionData.change_type,
-                            qty = transactionData.qty
-                        )
-                        transformedTransactions.add(transaction)
-                    }
-
-
-
                     // Update UI with transformed data
                     withContext(Dispatchers.Main) {
                         transactionList.clear()
-                        transactionList.addAll(transformedTransactions)
+                        transactionList.addAll(fetchedTransactions)
                         Log.d("FETCHED_TRANSACS", transactionList.toString())
                         adapter.notifyDataSetChanged()
                     }

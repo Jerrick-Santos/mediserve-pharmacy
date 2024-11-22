@@ -1,7 +1,10 @@
 package com.mediserve.pharma.mediservepharma
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.net.http.HttpException
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -9,9 +12,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresExtension
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mediserve.pharma.mediservepharma.databinding.ActivityMainBinding
@@ -21,6 +26,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class ProcessOrderActivity : ComponentActivity() {
 
@@ -31,8 +37,16 @@ class ProcessOrderActivity : ComponentActivity() {
     private var data: ArrayList<Order> = ArrayList()
 
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPreferences = getSharedPreferences("MediServePrefs", Context.MODE_PRIVATE)
+        val pharmacyID = sharedPreferences.getInt("pharmacyID", -1)
+
+        if (pharmacyID == -1) {
+            Toast.makeText(this, "Pharmacy ID not found. Please log in again.", Toast.LENGTH_SHORT).show()
+        }
 
         this.activityProcessOrderBinding = ActivityProcessOrderBinding.inflate(layoutInflater)
         setContentView(this.activityProcessOrderBinding.root)
@@ -54,6 +68,50 @@ class ProcessOrderActivity : ComponentActivity() {
             val intent = Intent(applicationContext, ScanQrActivity::class.java)
 
             this.startActivity(intent);
+        }
+
+        activityProcessOrderBinding.cancelBtn.setOnClickListener{
+            lifecycleScope.launch {
+                val response = try {
+                    RetrofitInstance.api.clearCart(pharmacyID)
+                } catch (e: IOException) {
+                    Log.e(TAG, "IOException: No network connection", e)
+                    return@launch
+                } catch (e: HttpException) {
+                    Log.e(TAG, "HttpException: Unexpected response", e)
+                    return@launch
+                }
+
+
+                if (response.isSuccessful) {
+                    intent = Intent(applicationContext, HomeActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.e(TAG, "DELETE Failed: ${response.message()}")
+                }
+            }
+        }
+
+        activityProcessOrderBinding.checkoutBtn.setOnClickListener{
+            lifecycleScope.launch {
+                val response = try {
+                    RetrofitInstance.api.checkoutCart(pharmacyID)
+                } catch (e: IOException) {
+                    Log.e(TAG, "IOException: No network connection", e)
+                    return@launch
+                } catch (e: HttpException) {
+                    Log.e(TAG, "HttpException: Unexpected response", e)
+                    return@launch
+                }
+
+
+                if (response.isSuccessful) {
+                    intent = Intent(applicationContext, ViewTransactions::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.e(TAG, "CHECKOUT Failed: ${response.toString()}")
+                }
+            }
         }
 
 
@@ -92,14 +150,12 @@ class ProcessOrderActivity : ComponentActivity() {
             Toast.makeText(this, "Pharmacy ID not found. Please log in again.", Toast.LENGTH_SHORT).show()
             return
         }
-        Log.d("PARAM CHECK", pharmacyID.toString())
         // Make API call using Retrofit
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitInstance.api.getCart(pharmacyID)
                 if (response.isSuccessful && response.body() != null) {
                     val fetchedCartItems = response.body()!! // List<InventoryStockGET>
-                    Log.d("TANGINAMOGAGOHAHA", fetchedCartItems.toString())
                     // Update UI with the fetched data
                     withContext(Dispatchers.Main) {
                         data.clear()

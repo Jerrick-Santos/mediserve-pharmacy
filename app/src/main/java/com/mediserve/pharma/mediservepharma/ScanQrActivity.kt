@@ -73,13 +73,14 @@ class ScanQrActivity : ComponentActivity() {
     }
 
     private fun registerUiListener(){
-        viewBinding.scanQrBtn.setOnClickListener{
-            if (isScannerInstalled) {
-                startScanning()
-            } else {
-                Toast.makeText(this, "Please try again...", Toast.LENGTH_SHORT).show()
-            }
-        }
+//        viewBinding.scanQrBtn.setOnClickListener{
+//            if (isScannerInstalled) {
+//                startScanning()
+//            } else {
+//                Toast.makeText(this, "Please try again...", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+        startScanning()
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
