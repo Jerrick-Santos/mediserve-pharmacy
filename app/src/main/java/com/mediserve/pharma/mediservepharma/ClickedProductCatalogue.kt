@@ -74,6 +74,11 @@ class ClickedProductCatalogue : ComponentActivity() {
             val productID = viewBinding.id.text.toString().removePrefix("PRDCT").toIntOrNull() ?: -1
             val currentAmt = viewBinding.addStock.text.toString().toIntOrNull() ?: -1
 
+            if (currentAmt == null || currentAmt <= 0) {
+                Toast.makeText(this, "Please enter a valid stock value greater than 0", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
 
             val newStock = NewStockPOST(
                 pharmacyID,

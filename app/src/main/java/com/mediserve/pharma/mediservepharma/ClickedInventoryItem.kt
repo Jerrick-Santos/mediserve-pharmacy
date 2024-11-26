@@ -60,6 +60,14 @@ class ClickedInventoryItem : ComponentActivity() {
 
 
         viewBinding.addToInventoryBtn.setOnClickListener {
+
+            val newStock = viewBinding.addStock.text.toString().toIntOrNull() ?: -1
+
+            if( newStock <= 0){
+                Toast.makeText(this, "Please enter a valid stock value greater than 0", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val editedStock = EditStockPatch(
                 intent.getIntExtra(InventoryAdapter.inventoryStockIdKey, -1),
                 "add",
@@ -91,6 +99,14 @@ class ClickedInventoryItem : ComponentActivity() {
         }
 
         viewBinding.deductToInventoryBtn5.setOnClickListener {
+
+            val newStock = viewBinding.addStock.text.toString().toIntOrNull() ?: -1
+
+            if( newStock <= 0 || newStock > intent.getIntExtra(InventoryAdapter.inventoryQtyKey, -1)){
+                Toast.makeText(this, "Please enter a valid stock value", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val editedStock = EditStockPatch(
                 intent.getIntExtra(InventoryAdapter.inventoryStockIdKey, -1),
                 "deduct",

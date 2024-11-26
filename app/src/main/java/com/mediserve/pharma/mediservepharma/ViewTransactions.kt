@@ -59,13 +59,13 @@ class ViewTransactions : ComponentActivity() {
                 val response = RetrofitInstance.api.getTransactions(pharmacyID)
                 if (response.isSuccessful && response.body() != null) {
                     val fetchedTransactions = response.body()!!
-
+                    Log.d("FETCHED_DATA", "Transactions fetched: ${fetchedTransactions.size}")
 
                     // Update UI with transformed data
                     withContext(Dispatchers.Main) {
                         transactionList.clear()
                         transactionList.addAll(fetchedTransactions)
-                        Log.d("FETCHED_TRANSACS", transactionList.toString())
+                        Log.d("FETCHED_TRANSACS", "Updated list: $transactionList")
                         adapter.notifyDataSetChanged()
                     }
                 } else {
