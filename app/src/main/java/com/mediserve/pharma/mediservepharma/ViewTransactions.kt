@@ -1,6 +1,7 @@
 package com.mediserve.pharma.mediservepharma
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -39,6 +40,26 @@ class ViewTransactions : ComponentActivity() {
 
         // Fetch data from the API
         fetchTransactions()
+
+        this.viewBinding.navProdCat.setOnClickListener{
+            intent = Intent(applicationContext, ProductCatalogueActivity::class.java)
+            this.startActivity(intent);
+        }
+
+        this.viewBinding.navProcessOrder.setOnClickListener{
+            intent = Intent(applicationContext, ProcessOrderActivity::class.java)
+            this.startActivity(intent);
+        }
+
+        this.viewBinding.navInventory.setOnClickListener{
+            intent = Intent(applicationContext, InventoryActivity::class.java)
+            this.startActivity(intent);
+        }
+
+        this.viewBinding.navTransactions.setOnClickListener{
+            intent = Intent(applicationContext, ViewTransactions::class.java)
+            this.startActivity(intent);
+        }
 
 
     }
